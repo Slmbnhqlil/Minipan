@@ -100,6 +100,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // KVKK checkbox ile gönder butonunu kontrol et
+    const kvkkCheckbox = document.getElementById('kvkk-consent');
+    const submitBtn = document.querySelector('.submit-btn');
+    if (kvkkCheckbox && submitBtn) {
+        function toggleSubmitBtn() {
+            submitBtn.disabled = !kvkkCheckbox.checked;
+        }
+        kvkkCheckbox.addEventListener('change', toggleSubmitBtn);
+        toggleSubmitBtn();
+
+        // KVKK onaylanmadıysa uyarı göster
+        submitBtn.addEventListener('click', function(e) {
+            if (!kvkkCheckbox.checked) {
+                e.preventDefault();
+                // Uyarı popup veya alert
+                showPopup('KVKK’yı onaylamadınız. Lütfen devam etmek için KVKK onay kutusunu işaretleyin.');
+            }
+        });
+    }
+    
     // Loading overlay oluştur
     function createLoadingOverlay(text = 'Email gönderiliyor...') {
         const overlay = document.createElement('div');
